@@ -7,6 +7,22 @@
 	"type": "module",
 	"main": "server.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "vitest",
+		"test:watch": "vitest --watch",
+		"test:coverage": "vitest --coverage",
+		"test:ui": "vitest --ui",
+		"test:unit": "vitest run tests/unit/",
+		"test:integration": "vitest run tests/integration/",
+		"test:performance": "vitest run tests/unit/performance.test.js",
+		"test:edge": "vitest run tests/unit/edge-cases.test.js",
+		"test:verbose": "vitest run --reporter=verbose",
+		"test:debug": "node --inspect-brk node_modules/vitest/vitest.mjs run",
+		"test:clean": "rm -rf coverage/ test-results.* .nyc_output/",
+		"test:runner": "node scripts/test-runner.js"
+	},
+	"devDependencies": {
+		"@vitest/coverage-v8": "^1.0.0",
+		"@vitest/ui": "^1.0.0",
+		"vitest": "^1.0.0"
 	}
 }
