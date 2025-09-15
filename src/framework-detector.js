@@ -1,4 +1,4 @@
-import { FRAMEWORK_PATTERNS } from '../frameworks.js'
+import { FRAMEWORK_PATTERNS } from './config/frameworks.js'
 import path from 'path'
 
 /**

@@ -1,6 +1,6 @@
 import fs from 'fs/promises'
 import path from 'path'
-import { CUSTOM_IGNORE } from '../ignore.js'
+import { CUSTOM_IGNORE } from './config/ignore.js'
 
 /**
  * Scans directory recursively and returns all files with their metadata

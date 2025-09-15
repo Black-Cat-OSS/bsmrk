@@ -1,4 +1,4 @@
-import { LANGUAGE_EXTENSIONS } from '../languages.js'
+import { LANGUAGE_EXTENSIONS } from './config/languages.js'
 
 /**
  * Analyzes files and returns language statistics with percentages

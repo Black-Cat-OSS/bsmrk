@@ -1,4 +1,4 @@
-import { CUSTOM_IGNORE } from '../ignore.js'
+import { CUSTOM_IGNORE } from './config/ignore.js'
 import path from 'path'
 
 /**
