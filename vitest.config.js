@@ -63,8 +63,8 @@ export default defineConfig({
     // Reporting settings
     reporter: ['verbose', 'json', 'html'],
     outputFile: {
-      json: 'test-results.json',
-      html: 'test-results.html'
+      json: 'results/test-results.json',
+      html: 'results/test-results.html'
     }
   }
 })
