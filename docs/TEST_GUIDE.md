@@ -150,12 +150,20 @@ assertions.validateIgnoredFiles(result.ignores)
 ## 📈 Quality Monitoring
 
 ### Continuous Integration
-Tests run automatically on every commit and pull request.
+Tests run automatically on every commit and pull request through GitHub Actions:
+
+- **🔄 Automated Testing**: Triggered on push to `main`/`develop` and all pull requests
+- **📊 Multi-Platform**: Tests run on Node.js versions 16, 18, and 20
+- **⚡ Fast Feedback**: Results available within minutes of push
+- **🚫 Merge Protection**: Pull requests blocked if tests fail
+- **📈 Coverage Tracking**: Code coverage calculated and stored
+- **🏗️ Build Validation**: Package build tested after successful tests
 
 ### Coverage Reports
-- Console report
-- HTML report (coverage/index.html)
-- JSON data (coverage/coverage-final.json)
+- **Console report** during CI/CD execution
+- **HTML report** (coverage/index.html) for local development
+- **JSON data** (coverage/coverage-final.json) for automation
+- **GitHub Actions** artifacts with coverage results
 
 ### Performance Metrics
 - Test execution time
@@ -200,6 +208,12 @@ npm run test:verbose
    - Invalid input data
    - Large data volumes
    - File system errors
+
+5. **CI/CD Integration**
+   - Tests run automatically on push
+   - Check GitHub Actions tab for results
+   - Fix failing tests before merging PRs
+   - Monitor coverage trends over time
 
 ## 📚 Additional Documentation
 
