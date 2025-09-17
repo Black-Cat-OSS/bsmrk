@@ -12,11 +12,14 @@ export async function detectFrameworks(files) {
 	const filePaths = new Set(files.map(f => f.path.toLowerCase()))
 	const directories = new Set()
 	
-	// Extract directory names
+	// Extract directory names and path segments
 	files.forEach(file => {
 		const dir = path.dirname(file.path)
 		if (dir !== '.') {
 			directories.add(dir.toLowerCase())
+			// Also add individual path segments
+			const segments = dir.split(path.sep).filter(segment => segment)
+			segments.forEach(segment => directories.add(segment.toLowerCase()))
 		}
 	})
 	
@@ -81,17 +84,24 @@ function matchesPattern(pattern, fileNames, filePaths, directories, files) {
 		return true
 	}
 	
-	// Path contains pattern
-	for (const filePath of filePaths) {
-		if (filePath.includes(lowerPattern)) {
-			return true
+	// Extension match - check if pattern is just an extension (prioritize over path matching)
+	if (files.some(file => file.extension && file.extension.toLowerCase() === lowerPattern)) {
+		return true
+	}
+	
+	// Path contains pattern (but not for simple extensions)
+	if (!isSimpleExtension(lowerPattern)) {
+		for (const filePath of filePaths) {
+			if (filePath.includes(lowerPattern)) {
+				return true
+			}
 		}
 	}
 	
-	// Extension match
-	if (lowerPattern.startsWith('.') || lowerPattern.includes('.')) {
-		const ext = lowerPattern.startsWith('.') ? lowerPattern.slice(1) : lowerPattern
-		if (files.some(file => file.extension === ext)) {
+	// Extension match with dot prefix
+	if (lowerPattern.startsWith('.')) {
+		const ext = lowerPattern.slice(1)
+		if (files.some(file => file.extension && file.extension.toLowerCase() === ext)) {
 			return true
 		}
 	}
@@ -199,4 +209,20 @@ function resolveFrameworkConflicts(frameworks) {
 	}
 	
 	return Array.from(frameworkSet)
+}
+
+/**
+ * Checks if a pattern is a simple file extension
+ * @param {string} pattern - Pattern to check
+ * @returns {boolean}
+ */
+function isSimpleExtension(pattern) {
+	// Common file extensions that should be matched exactly
+	const commonExtensions = [
+		'js', 'jsx', 'ts', 'tsx', 'vue', 'py', 'java', 'rb', 'php', 'go', 'rs', 'cpp', 'c', 'h',
+		'css', 'scss', 'sass', 'less', 'styl', 'html', 'htm', 'xml', 'json', 'yaml', 'yml', 'toml',
+		'md', 'txt', 'sql', 'sh', 'bat', 'ps1', 'dockerfile', 'makefile'
+	]
+	
+	return commonExtensions.includes(pattern) && !pattern.includes('/') && !pattern.includes('\\') && !pattern.includes('.')
 }

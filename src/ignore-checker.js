@@ -32,16 +32,23 @@ function createIgnorePatterns(patterns) {
 		const finalPattern = isDirectory ? cleanPattern.slice(0, -1) : cleanPattern
 		
 		// Convert glob pattern to regex
-		const regexPattern = finalPattern
+		let regexPattern = finalPattern
 			.replace(/\./g, '\\.')
 			.replace(/\*\*/g, '__DOUBLE_STAR__')
 			.replace(/\*/g, '[^/\\\\]*')
 			.replace(/__DOUBLE_STAR__/g, '.*')
 			.replace(/\?/g, '[^/\\\\]')
 		
+		// For directory patterns, match paths that start with the pattern
+		if (isDirectory) {
+			regexPattern = `(^|.*[/\\\\])${regexPattern}([/\\\\].*|$)`
+		} else {
+			regexPattern = `^${regexPattern}$`
+		}
+		
 		return {
 			pattern: finalPattern,
-			regex: new RegExp(`^${regexPattern}$`, 'i'),
+			regex: new RegExp(regexPattern, 'i'),
 			isDirectory,
 			isNegation
 		}

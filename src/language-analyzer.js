@@ -64,9 +64,12 @@ function createLanguageMap() {
  * @returns {string|null}
  */
 function detectLanguage(file, languageMap) {
-	// First try by extension
-	if (file.extension && languageMap.has(file.extension)) {
-		return languageMap.get(file.extension)
+	// First try by extension (case-insensitive)
+	if (file.extension) {
+		const normalizedExtension = file.extension.toLowerCase()
+		if (languageMap.has(normalizedExtension)) {
+			return languageMap.get(normalizedExtension)
+		}
 	}
 	
 	// Special cases for files without extensions
