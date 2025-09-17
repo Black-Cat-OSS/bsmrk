@@ -1,7 +1,125 @@
-# Bismark is lite-weight library
+# 🔍 BismarkJS - Directory Analyzer
 
-BismarkJS may used as zero-deps solution for your project. Library 
-can define libraries, frameworks in directory/directories
+[![npm version](https://badge.fury.io/js/bismark-js.svg)](https://badge.fury.io/js/bismark-js)
+[![CI/CD Pipeline](https://github.com/your-username/bismark-js/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/your-username/bismark-js/actions)
+[![License](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE.md)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen.svg)](https://nodejs.org/)
+
+BismarkJS is a powerful, lightweight directory analyzer that can detect programming languages, frameworks, and ignored files in any project directory. Perfect for project analysis, documentation generation, and development tools.
+
+## 📦 Installation
+
+```bash
+# npm
+npm install bismark-js
+
+# yarn
+yarn add bismark-js
+
+# pnpm
+pnpm add bismark-js
+```
+
+## 🚀 Quick Start
+
+### ES Modules
+```javascript
+import { analyzeDirectory } from 'bismark-js';
+
+const result = await analyzeDirectory('./my-project');
+console.log(result);
+```
+
+### CommonJS
+```javascript
+const { analyzeDirectory } = require('bismark-js');
+
+async function analyze() {
+  const result = await analyzeDirectory('./my-project');
+  console.log(result);
+}
+```
+
+### Example Output
+```json
+{
+  "langs": [
+    { "lang": "javascript", "percent": 65.5 },
+    { "lang": "typescript", "percent": 30.2 },
+    { "lang": "css", "percent": 4.3 }
+  ],
+  "frameworks": ["react", "nextjs", "tailwind"],
+  "ignores": ["node_modules/", ".git/", "dist/"]
+}
+```
+
+## 🔧 API Reference
+
+### `analyzeDirectory(path)`
+Analyzes a directory and returns comprehensive information about its contents.
+
+**Parameters:**
+- `path` (string): Path to the directory to analyze
+
+**Returns:**
+- `Promise<{langs, frameworks, ignores}>`: Analysis results
+  - `langs`: Array of detected languages with percentages
+  - `frameworks`: Array of detected frameworks
+  - `ignores`: Array of ignored files and directories
+
+### Individual Functions
+```javascript
+import { 
+  scanDirectory,
+  analyzeLanguages, 
+  detectFrameworks,
+  getIgnoredFiles 
+} from 'bismark-js';
+
+// Scan directory for all files
+const files = await scanDirectory('./project');
+
+// Analyze language distribution
+const languages = await analyzeLanguages(files);
+
+// Detect frameworks
+const frameworks = await detectFrameworks(files);
+
+// Get ignored files
+const ignored = await getIgnoredFiles(files);
+```
+
+## 📚 Documentation
+
+- 🚀 **[Quick Start Guide](docs/QUICK_START.md)** - Get up and running in minutes
+- 📖 **[Examples](docs/EXAMPLES.md)** - Comprehensive usage examples
+- 🧪 **[Testing Guide](docs/TEST_GUIDE.md)** - Comprehensive testing documentation
+- 🔄 **[CI/CD Guide](docs/CI_CD_GUIDE.md)** - Continuous Integration and Deployment
+- 🧪 **[Test Examples](tests/examples.md)** - Real-world test cases
+
+## 🚀 CI/CD Pipeline
+
+This project features a fully automated CI/CD pipeline that ensures code quality and seamless releases:
+
+### 🔄 **Automated Workflow**
+- **✅ Continuous Testing**: All tests run automatically on push and pull requests
+- **📊 Multi-Version Testing**: Tests run on Node.js 16, 18, and 20
+- **🏗️ Automatic Building**: Package builds and artifacts validation
+- **🏷️ Smart Versioning**: Automatic version bumping with semantic strategy
+- **📦 Auto-Publishing**: Seamless NPM package publishing
+- **📋 Release Notes**: Auto-generated GitHub releases with changelogs
+
+### 📈 **Version Strategy**
+- **Minor versions** increment automatically (1.0.0 → 1.1.0 → 1.2.0...)
+- **Major version** bumps when minor reaches 10 (1.9.0 → 2.0.0)
+- **Patch versions** reset to 0 on each minor/major bump
+- **Tags created** automatically for each release
+
+### 🎯 **Quality Gates**
+- All tests must pass before versioning
+- Build artifacts must be valid
+- Multi-platform compatibility verified
+- No deployment on test failures
 
 ## 🚀 Supported Languages
 
@@ -200,6 +318,9 @@ Bismark supports **100+ programming languages** with over **500 file extensions*
 - **Extensible**: Easy to add new languages and file types
 - **Fast Processing**: Efficient file traversal and analysis
 - **Multiple Output Formats**: JSON, plain text, and multipart responses
+- **🚀 Automated CI/CD**: Continuous integration with automatic versioning and releases
+- **📊 Quality Assurance**: Automated testing on multiple Node.js versions (16, 18, 20)
+- **🔄 Smart Versioning**: Automatic version bumping with semantic release strategy
 
 ## 📦 API Endpoints
 

@@ -1,12 +1,41 @@
 {
-	"name": "BismarkJS",
+	"name": "bismark-js",
 	"version": "1.0.0",
-	"description": "",
+	"description": "A powerful directory analyzer that detects programming languages, frameworks, and ignored files",
 	"license": "ISC",
 	"author": "",
 	"type": "module",
-	"main": "server.js",
+	"main": "dist/index.cjs",
+	"module": "dist/index.esm.js",
+	"browser": "dist/index.umd.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.esm.js",
+			"require": "./dist/index.cjs",
+			"browser": "./dist/index.umd.js"
+		}
+	},
+	"files": [
+		"dist/",
+		"README.md",
+		"LICENSE.md"
+	],
+	"keywords": [
+		"directory-analyzer",
+		"language-detection",
+		"framework-detection",
+		"file-scanner",
+		"code-analysis"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/your-username/bismark-js.git"
+	},
 	"scripts": {
+		"build": "rollup -c",
+		"build:watch": "rollup -c --watch",
+		"prepublishOnly": "npm run build",
 		"test": "vitest",
 		"test:watch": "vitest --watch",
 		"test:coverage": "vitest --coverage",
@@ -21,8 +50,15 @@
 		"test:runner": "node scripts/test-runner.js"
 	},
 	"devDependencies": {
+		"@rollup/plugin-commonjs": "^25.0.7",
+		"@rollup/plugin-json": "^6.0.1",
+		"@rollup/plugin-node-resolve": "^15.2.3",
 		"@vitest/coverage-v8": "^1.0.0",
 		"@vitest/ui": "^1.0.0",
+		"rollup": "^4.9.1",
 		"vitest": "^1.0.0"
+	},
+	"engines": {
+		"node": ">=14.0.0"
 	}
 }
