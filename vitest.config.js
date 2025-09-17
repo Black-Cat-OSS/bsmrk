@@ -1,10 +1,16 @@
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
+  define: {
+    global: 'globalThis',
+  },
   test: {
     // Global settings
     globals: true,
     environment: 'node',
+    
+    // Pool options for better compatibility
+    pool: 'forks',
     
     // Setup file for tests
     setupFiles: ['./tests/setup.js'],

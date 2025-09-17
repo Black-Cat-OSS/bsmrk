@@ -3,9 +3,22 @@
  */
 
 import { vi } from 'vitest'
+import { webcrypto } from 'node:crypto'
 
 // Global mocks and settings
 global.vi = vi
+
+// Crypto polyfill for Node.js compatibility
+if (!globalThis.crypto) {
+  globalThis.crypto = webcrypto
+}
+
+// Additional crypto polyfills for older Node versions
+if (!globalThis.crypto.getRandomValues) {
+  globalThis.crypto.getRandomValues = (array) => {
+    return webcrypto.getRandomValues(array)
+  }
+}
 
 // Setup timeouts for tests
 vi.setConfig({

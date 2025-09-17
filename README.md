@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/bismark-js.svg)](https://badge.fury.io/js/bismark-js)
 [![CI/CD Pipeline](https://github.com/your-username/bismark-js/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/your-username/bismark-js/actions)
 [![License](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE.md)
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen.svg)](https://nodejs.org/)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
 
 BismarkJS is a powerful, lightweight directory analyzer that can detect programming languages, frameworks, and ignored files in any project directory. Perfect for project analysis, documentation generation, and development tools.
 
@@ -103,7 +103,7 @@ This project features a fully automated CI/CD pipeline that ensures code quality
 
 ### 🔄 **Automated Workflow**
 - **✅ Continuous Testing**: All tests run automatically on push and pull requests
-- **📊 Multi-Version Testing**: Tests run on Node.js 16, 18, and 20
+- **📊 Multi-Version Testing**: Tests run on Node.js 18, 20, and 22
 - **🏗️ Automatic Building**: Package builds and artifacts validation
 - **🏷️ Smart Versioning**: Automatic version bumping with semantic strategy
 - **📦 Auto-Publishing**: Seamless NPM package publishing

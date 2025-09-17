@@ -17,7 +17,7 @@ jobs:
     
     strategy:
       matrix:
-        node-version: [16, 18, 20]
+        node-version: [18, 20, 22]
     
     steps:
       - name: 📥 Checkout repository
@@ -37,6 +37,8 @@ jobs:
           npm ls --depth=0
       
       - name: 🧪 Run tests
+        env:
+          NODE_OPTIONS: '--experimental-global-webcrypto'
         run: |
           npm run test:clean
           npm run test:coverage
