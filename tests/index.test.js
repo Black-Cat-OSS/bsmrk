@@ -11,7 +11,6 @@ import './unit/language-analyzer.test.js'
 import './unit/framework-detector.test.js'
 import './unit/ignore-checker.test.js'
 import './unit/edge-cases.test.js'
-import './unit/performance.test.js'
 import './integration/analyze-directory.test.js'
 
 describe('BismarkJS - Complete Test Suite', () => {

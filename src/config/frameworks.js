@@ -1,6 +1,6 @@
 export const FRAMEWORK_PATTERNS = [
 	// Frontend JavaScript Frameworks
-	['react', 'jsx', 'tsx', 'package.json', '.babelrc', 'webpack.config.js', 'create-react-app'],
+	['react', 'jsx', 'tsx', 'react', 'package.json', '.babelrc', 'webpack.config.js', 'create-react-app'],
 	['vue', 'vue', 'package.json', 'vue.config.js', 'nuxt.config.js', 'vite.config.js'],
 	['angular', 'component.ts', 'module.ts', 'service.ts', 'angular.json', 'tsconfig.json', 'ng'],
 	['svelte', 'svelte', 'svelte.config.js', 'vite.config.js', 'rollup.config.js'],

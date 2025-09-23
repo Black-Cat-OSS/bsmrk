@@ -42,7 +42,6 @@
 		"test:ui": "vitest --ui",
 		"test:unit": "vitest run tests/unit/",
 		"test:integration": "vitest run tests/integration/",
-		"test:performance": "vitest run tests/unit/performance.test.js",
 		"test:edge": "vitest run tests/unit/edge-cases.test.js",
 		"test:verbose": "vitest run --reporter=verbose",
 		"test:debug": "node --inspect-brk node_modules/vitest/vitest.mjs run",

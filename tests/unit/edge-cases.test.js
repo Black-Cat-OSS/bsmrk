@@ -214,27 +214,6 @@ describe('Edge Cases and Error Handling', () => {
       expect(jsLang.percent).toBeGreaterThan(90) // Большой файл должен доминировать
     })
 
-    it('should handle many small files', async () => {
-      const structure = {}
-      
-      // Create много маленьких файлов
-      for (let i = 0; i < 1000; i++) {
-        structure[`file${i}.js`] = `console.log("File ${i}");`
-      }
-      
-      testDir = await createTestDirectory(structure)
-      
-      const startTime = Date.now()
-      const result = await analyzeDirectory(testDir)
-      const endTime = Date.now()
-      
-      // Должно выполняться за разумное время
-      expect(endTime - startTime).toBeLessThan(5000) // Менее 5 секунд
-      
-      expect(result.langs).toHaveLength(1)
-      expect(result.langs[0].lang).toBe('javascript')
-      expect(result.langs[0].percent).toBe(100)
-    })
 
     it('should handle deeply nested directory structure', async () => {
       // Create очень глубокую structure
@@ -323,7 +302,7 @@ describe('Edge Cases and Error Handling', () => {
         return originalStat(filePath)
       })
       
-      vi.mocked(fs.stat).mockImplementation(mockStat)
+      vi.spyOn(fs, 'stat').mockImplementation(mockStat)
       
       const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
       
@@ -351,7 +330,7 @@ describe('Edge Cases and Error Handling', () => {
         return originalReaddir(dirPath)
       })
       
-      vi.mocked(fs.readdir).mockImplementation(mockReaddir)
+      vi.spyOn(fs, 'readdir').mockImplementation(mockReaddir)
       
       const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
       

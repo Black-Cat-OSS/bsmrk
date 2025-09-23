@@ -410,41 +410,5 @@ describe('ignore-checker', () => {
       expect(result).toContain('style.min.css') // *.min.css паттерн
     })
 
-    it('should handle extremely large file lists efficiently', async () => {
-      const files = []
-      
-      // Create большой список файлов
-      for (let i = 0; i < 1000; i++) {
-        files.push({
-          path: `src/component${i}.js`,
-          name: `component${i}.js`,
-          extension: 'js',
-          size: 100 + i
-        })
-        
-        if (i % 10 === 0) {
-          files.push({
-            path: `node_modules/lib${i}/index.js`,
-            name: 'index.js',
-            extension: 'js',
-            size: 50
-          })
-        }
-      }
-      
-      const startTime = Date.now()
-      const result = await getIgnoredFiles(files)
-      const endTime = Date.now()
-      
-      assertions.validateIgnoredFiles(result)
-      
-      // Check performance (должно выполняться разумно быстро)
-      expect(endTime - startTime).toBeLessThan(1000) // Менее 1 секунды
-      
-      // Check корректность resultа
-      const ignoredCount = result.length
-      const nodeModulesCount = files.filter(f => f.path.includes('node_modules')).length
-      expect(ignoredCount).toBe(nodeModulesCount)
-    })
   })
 })

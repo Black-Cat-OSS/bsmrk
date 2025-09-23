@@ -106,26 +106,34 @@ export async function getIgnoreStatistics(files) {
 	let ignoredCount = 0
 	let ignoredSize = 0
 	
+	// Deduplicate patterns to avoid counting the same pattern multiple times
+	const uniquePatterns = new Map()
+	for (const { pattern, regex, isDirectory, isNegation } of ignorePatterns) {
+		if (!uniquePatterns.has(pattern)) {
+			uniquePatterns.set(pattern, { pattern, regex, isDirectory, isNegation })
+		}
+	}
+	
 	for (const file of files) {
 		if (shouldIgnoreFile(file, ignorePatterns)) {
 			ignoredCount++
 			ignoredSize += file.size
 			
-			// Track which patterns matched
-			for (const { pattern, regex, isDirectory, isNegation } of ignorePatterns) {
-				if (!isNegation) {
-					const matches = (
-						regex.test(file.path) ||
-						regex.test(file.name) ||
-						(isDirectory && pathContainsDirectory(file.path, regex))
-					)
-					
-					if (matches) {
-						const current = patternStats.get(pattern) || 0
-						patternStats.set(pattern, current + 1)
-					}
+		// Track which patterns matched
+		for (const { pattern, regex, isDirectory, isNegation } of uniquePatterns.values()) {
+			if (!isNegation) {
+				const matches = (
+					regex.test(file.path) ||
+					regex.test(file.name) ||
+					(isDirectory && pathContainsDirectory(file.path, regex))
+				)
+				
+				if (matches) {
+					const current = patternStats.get(pattern) || 0
+					patternStats.set(pattern, current + 1)
 				}
 			}
+		}
 		}
 	}
 	

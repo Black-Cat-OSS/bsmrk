@@ -1,3 +1,4 @@
+import fs from 'fs/promises'
 import { scanDirectory } from './file-scanner.js'
 import { analyzeLanguages } from './language-analyzer.js'
 import { detectFrameworks } from './framework-detector.js'
@@ -9,6 +10,32 @@ import { getIgnoredFiles } from './ignore-checker.js'
  * @returns {Promise<{langs: Array<{lang: string, percent: number}>, frameworks: Array<string>, ignores: Array<string>}>}
  */
 export async function analyzeDirectory(directoryPath) {
+	// Validate input parameters
+	if (directoryPath === null || directoryPath === undefined) {
+		throw new Error('Directory path cannot be null or undefined')
+	}
+	
+	if (typeof directoryPath !== 'string') {
+		throw new Error('Directory path must be a string')
+	}
+	
+	if (directoryPath.trim() === '') {
+		throw new Error('Directory path cannot be empty')
+	}
+	
+	try {
+		// Check if path exists and is a directory
+		const stats = await fs.stat(directoryPath)
+		if (!stats.isDirectory()) {
+			throw new Error(`Path is not a directory: ${directoryPath}`)
+		}
+	} catch (error) {
+		if (error.code === 'ENOENT') {
+			throw new Error(`Directory does not exist: ${directoryPath}`)
+		}
+		throw new Error(`Failed to access directory: ${error.message}`)
+	}
+	
 	try {
 		// Scan all files in directory
 		const files = await scanDirectory(directoryPath)

@@ -204,7 +204,7 @@ describe('file-scanner', () => {
 
     it('should handle permission errors gracefully', async () => {
       // Mock readdir to simulate access error
-      const mockReaddir = vi.mocked(fs.readdir)
+      const mockReaddir = vi.spyOn(fs, 'readdir')
       mockReaddir.mockRejectedValueOnce(new Error('EACCES: permission denied'))
       
       // Create real directory for initial call
